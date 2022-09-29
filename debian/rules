@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+%:
+	dh $@ --with golang --buildsystem golang
+
+override_dh_auto_test:
+	# Tests must be ran from the source directory
+	# Tests require newer mongodb features such as --sslMode preferSSL

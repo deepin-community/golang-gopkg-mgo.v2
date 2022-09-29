@@ -1,0 +1,22 @@
+From 1e52f6152a9b262873f831bb5a94bcd29ef38c38 Mon Sep 17 00:00:00 2001
+From: Zachary Snow <zach.snow@mongodb.com>
+Date: Wed, 3 Aug 2016 10:00:57 -0400
+Subject: [PATCH] fix integer constant overflow on 32-bit systems
+
+---
+ bson/json.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/bson/json.go b/bson/json.go
+index d37f8350..09df8260 100644
+--- a/bson/json.go
++++ b/bson/json.go
+@@ -317,7 +317,7 @@ func jencNumberLong(v interface{}) ([]byte, error) {
+ func jencInt(v interface{}) ([]byte, error) {
+ 	n := v.(int)
+ 	f := `{"$numberLong":"%d"}`
+-	if n <= 1<<53 {
++	if int64(n) <= 1<<53 {
+ 		f = `%d`
+ 	}
+ 	return fbytes(f, n), nil

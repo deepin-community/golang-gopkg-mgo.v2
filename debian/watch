@@ -1,0 +1,3 @@
+version=3
+opts=filenamemangle=s/.+\/r?(\d\S*)\.tar\.gz/golang-gopkg-mgo.v2-$1\.tar\.gz/ \
+  https://github.com/go-mgo/mgo/tags .*/r([\d\.]*)\.tar\.gz
